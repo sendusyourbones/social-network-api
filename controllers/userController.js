@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 // GET all users
 const getUsers = async (req, res) => {
@@ -68,8 +68,16 @@ const deleteUser = async (req, res) => {
     const userId = req.params.id;
 
     try {
-        const deletedUser = await User.findByIdAndDelete(userId);
-        res.json(deletedUser);
+        // Delete user
+        const deletedUser = await User.findByIdAndDelete(
+            userId, 
+            { new: true }
+        );
+
+        // Delete user's thoughts
+        await Thought.deleteMany({ username: deletedUser.username });
+
+        res.json(`${userId} deleted`);
     } catch (error) {
         console.log(error);
         res.status(500).json({error});
