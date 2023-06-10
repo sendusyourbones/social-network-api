@@ -77,7 +77,24 @@ const deleteThought = async (req, res) => {
 };
 
 // POST a reaction to a thought's reactions property
+const addReaction = async (req, res) => {
+    const thoughtId = req.params.thoughtId;
+    const { reactionBody, username } = req.body;
+    const newReaction = { reactionBody, username };
 
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(
+            thoughtId,
+            { $push: { reactions: newReaction } },
+            { new: true },
+        );
+
+        res.json(updatedThought);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // DELETE a reaction by reactionId value
 
@@ -87,4 +104,5 @@ module.exports = {
     createThought,
     updateThought,
     deleteThought,
+    addReaction,
 }

@@ -5,6 +5,7 @@ const {
     createThought,
     updateThought,
     deleteThought,
+    addReaction,
 } = require ('../../../controllers/thoughtController');
 
 // /api/thoughts prepended to every route declared here
@@ -25,7 +26,7 @@ router.put('/:id', updateThought);
 router.delete('/:id', deleteThought);
 
 // POST a reaction to a thought's reactions property
-
+router.post('/:thoughtId/reactions', addReaction);
 
 // DELETE a reaction by reactionId value
 
