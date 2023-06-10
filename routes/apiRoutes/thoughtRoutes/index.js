@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {
     getThoughts,
+    getThought,
     createThought,
 } = require ('../../../controllers/thoughtController');
 
@@ -10,7 +11,7 @@ const {
 router.get('/', getThoughts);
 
 // GET one thought by id
-
+router.get('/:id', getThought);
 
 // POST a new thought, add to user's thoughts property
 router.post('/', createThought);

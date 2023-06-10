@@ -1,7 +1,7 @@
 const { Thought, User } = require('../models');
 
 
-// GET all thoughts, make sure date is formatted
+// GET all thoughts
 const getThoughts = async (req, res) => {
     try {
         const thoughts = await Thought.find({});
@@ -12,8 +12,18 @@ const getThoughts = async (req, res) => {
     }
 };
 
-// GET one thought by id, make sure date is formatted
+// GET one thought by id
+const getThought = async (req, res) => {
+    const thoughtId = req.params.id;
 
+    try {
+        const thought = await Thought.findById(thoughtId);
+        res.json(thought);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // POST a new thought
 const createThought = async (req, res) => {
@@ -49,5 +59,6 @@ const createThought = async (req, res) => {
 
 module.exports = {
     getThoughts,
+    getThought,
     createThought,
 }
