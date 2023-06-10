@@ -4,6 +4,7 @@ const {
     getUser,
     createUser,
     updateUser,
+    deleteUser,
 } = require ('../../../controllers/userController');
 
 // /api/users prepended to every route declared here
@@ -21,7 +22,7 @@ router.post('/', createUser);
 router.put('/:id', updateUser);
 
 // DELETE a user by id
-
+router.delete('/:id', deleteUser);
 
 // POST a friend to a user's friend list
 
