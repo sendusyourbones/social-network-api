@@ -97,6 +97,23 @@ const addReaction = async (req, res) => {
 };
 
 // DELETE a reaction by reactionId value
+const deleteReaction = async (req, res) => {
+    const thoughtId = req.params.thoughtId;
+    const { reactionId } = req.body;
+
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(
+            thoughtId,
+            { $pull: { reactions: { _id: reactionId } } },
+            { new: true },
+        );
+
+        res.json(updatedThought);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 module.exports = {
     getThoughts,
@@ -105,4 +122,5 @@ module.exports = {
     updateThought,
     deleteThought,
     addReaction,
+    deleteReaction,
 }
