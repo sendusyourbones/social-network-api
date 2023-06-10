@@ -1,6 +1,5 @@
 const { Thought, User } = require('../models');
 
-
 // GET all thoughts
 const getThoughts = async (req, res) => {
     try {
@@ -47,7 +46,22 @@ const createThought = async (req, res) => {
 };
 
 // PUT to update a thought by id
+const updateThought = async (req, res) => {
+    const thoughtId = req.params.id;
+    const { updatedThoughtText } = req.body;
 
+    try {
+        const updatedThought = await Thought.findByIdAndUpdate(
+            thoughtId,
+            { $set: { thoughtText: updatedThoughtText } },
+            { new: true },
+        );
+        res.json(updatedThought);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // DELETE a thought by id
 
@@ -61,4 +75,5 @@ module.exports = {
     getThoughts,
     getThought,
     createThought,
+    updateThought,
 }

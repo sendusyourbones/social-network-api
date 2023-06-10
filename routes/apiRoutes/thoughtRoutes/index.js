@@ -3,6 +3,7 @@ const {
     getThoughts,
     getThought,
     createThought,
+    updateThought,
 } = require ('../../../controllers/thoughtController');
 
 // /api/thoughts prepended to every route declared here
@@ -17,7 +18,7 @@ router.get('/:id', getThought);
 router.post('/', createThought);
 
 // PUT to update a thought by id
-
+router.put('/:id', updateThought);
 
 // DELETE a thought by id
 
