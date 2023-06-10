@@ -64,7 +64,17 @@ const updateThought = async (req, res) => {
 };
 
 // DELETE a thought by id
+const deleteThought = async (req, res) => {
+    const thoughtId = req.params.id;
 
+    try {
+        const deletedThought = await Thought.findByIdAndDelete(thoughtId);
+        res.json(deletedThought);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // POST a reaction to a thought's reactions property
 
@@ -76,4 +86,5 @@ module.exports = {
     getThought,
     createThought,
     updateThought,
+    deleteThought,
 }

@@ -4,6 +4,7 @@ const {
     getThought,
     createThought,
     updateThought,
+    deleteThought,
 } = require ('../../../controllers/thoughtController');
 
 // /api/thoughts prepended to every route declared here
@@ -21,7 +22,7 @@ router.post('/', createThought);
 router.put('/:id', updateThought);
 
 // DELETE a thought by id
-
+router.delete('/:id', deleteThought);
 
 // POST a reaction to a thought's reactions property
 
