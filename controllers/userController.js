@@ -38,7 +38,30 @@ const createUser = async (req, res) => {
 };
 
 // PUT to update a user by id
+const updateUser = async (req, res) => {
+    const userId = req.params.id;
 
+    // Create an updates object only containing the updated fields
+    const updates = {};
+    if (req.body.username) {
+        updates.username = req.body.username;
+    }
+    if (req.body.email) {
+        updates.email = req.body.email;
+    }
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: updates },
+            { new: true },
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // DELETE a user by id
 
@@ -52,4 +75,5 @@ module.exports = {
     getUsers,
     getUser,
     createUser,
+    updateUser,
 }

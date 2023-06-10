@@ -3,6 +3,7 @@ const {
     getUsers,
     getUser,
     createUser,
+    updateUser,
 } = require ('../../../controllers/userController');
 
 // /api/users prepended to every route declared here
@@ -17,7 +18,7 @@ router.get('/:id', getUser);
 router.post('/', createUser);
 
 // PUT to update a user by id
-
+router.put('/:id', updateUser);
 
 // DELETE a user by id
 
