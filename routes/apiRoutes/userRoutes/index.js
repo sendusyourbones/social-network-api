@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {
     getUsers,
+    getUser,
     createUser,
 } = require ('../../../controllers/userController');
 
@@ -10,7 +11,7 @@ const {
 router.get('/', getUsers);
 
 // GET one user by id, populate thought and friend data
-
+router.get('/:id', getUser);
 
 // POST new user
 router.post('/', createUser);

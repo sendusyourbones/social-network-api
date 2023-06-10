@@ -12,7 +12,17 @@ const getUsers = async (req, res) => {
 };
 
 // GET one user by id, populate thought and friend data
+const getUser = async (req, res) => {
+    const userId = req.params.id;
 
+    try {
+        const user = await User.findById(userId).populate('thoughts friends');
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // POST new user
 const createUser = async (req, res) => {
@@ -40,5 +50,6 @@ const createUser = async (req, res) => {
 
 module.exports = {
     getUsers,
+    getUser,
     createUser,
 }
