@@ -94,6 +94,21 @@ const addFriend = async (req, res) => {
 };
 
 // DELETE a friend from a user's friend list
+const deleteFriend = async (req, res) => {
+    const { userId, friendId } = req.params;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $pull: { friends: friendId } },
+            { new: true },
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 module.exports = {
     getUsers,
@@ -102,4 +117,5 @@ module.exports = {
     updateUser,
     deleteUser,
     addFriend,
+    deleteFriend,
 }
