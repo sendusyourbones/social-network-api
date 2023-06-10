@@ -77,7 +77,21 @@ const deleteUser = async (req, res) => {
 };
 
 // POST a friend to a user's friend list
+const addFriend = async (req, res) => {
+    const { userId, friendId } = req.params;
 
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $addToSet: { friends: friendId } },
+            { new: true },
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error});
+    }
+};
 
 // DELETE a friend from a user's friend list
 
@@ -87,4 +101,5 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
+    addFriend,
 }
