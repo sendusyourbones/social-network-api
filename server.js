@@ -15,7 +15,6 @@ app.use(routes);
 mongoose.connect('mongodb://localhost/socialNetworkDb')
     .then(() => {
         console.log('Connected to the social network db');
-        // mongoose.connection.db.dropDatabase();
     })
     .catch(error => console.log(error));
 
